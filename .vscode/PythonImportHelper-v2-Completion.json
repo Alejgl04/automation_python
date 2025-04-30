@@ -1,0 +1,63 @@
+[
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "shutil",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "shutil",
+        "description": "shutil",
+        "detail": "shutil",
+        "documentation": {}
+    },
+    {
+        "label": "Tk",
+        "importPath": "tkinter",
+        "description": "tkinter",
+        "isExtraImport": true,
+        "detail": "tkinter",
+        "documentation": {}
+    },
+    {
+        "label": "filedialog",
+        "importPath": "tkinter",
+        "description": "tkinter",
+        "isExtraImport": true,
+        "detail": "tkinter",
+        "documentation": {}
+    },
+    {
+        "label": "window",
+        "kind": 5,
+        "importPath": "order-files.order-documents-files",
+        "description": "order-files.order-documents-files",
+        "peekOfCode": "window = Tk()\nwindow.withdraw()\nroot = filedialog.askdirectory(title=\"Select the folder to order\")\nextensions = {\n  '.jpg': 'Images',\n  '.png': 'Images',\n  '.pdf': 'PDFs',\n  '.docx': 'Documents_word',\n  '.txt': 'Documents_txt',\n}",
+        "detail": "order-files.order-documents-files",
+        "documentation": {}
+    },
+    {
+        "label": "root",
+        "kind": 5,
+        "importPath": "order-files.order-documents-files",
+        "description": "order-files.order-documents-files",
+        "peekOfCode": "root = filedialog.askdirectory(title=\"Select the folder to order\")\nextensions = {\n  '.jpg': 'Images',\n  '.png': 'Images',\n  '.pdf': 'PDFs',\n  '.docx': 'Documents_word',\n  '.txt': 'Documents_txt',\n}\nfor folder in set(extensions.values()):\n  folder_root = os.path.join(root, folder)",
+        "detail": "order-files.order-documents-files",
+        "documentation": {}
+    },
+    {
+        "label": "extensions",
+        "kind": 5,
+        "importPath": "order-files.order-documents-files",
+        "description": "order-files.order-documents-files",
+        "peekOfCode": "extensions = {\n  '.jpg': 'Images',\n  '.png': 'Images',\n  '.pdf': 'PDFs',\n  '.docx': 'Documents_word',\n  '.txt': 'Documents_txt',\n}\nfor folder in set(extensions.values()):\n  folder_root = os.path.join(root, folder)\n  if not os.path.exists(folder_root):",
+        "detail": "order-files.order-documents-files",
+        "documentation": {}
+    }
+]

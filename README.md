@@ -1,7 +1,7 @@
 
 # Automate with Python 
 
-> This python develop is for sort files and folders using tkinter 
+> This python scripts will be for making automatic tasks such as scrapping, sort files among others.
 
 ## Built With
 
@@ -27,21 +27,9 @@ To get a local copy up and running, follow these simple example steps:
 
 - Your local copy will be created.
 
-### Github Actions
-
-To make sure the linters' checks using GitHub Actions work properly, you should follow the next steps:
-
-1. On your recently forked repo, enable GitHub Actions in the Actions tab.
-   
-2. Create the `feature/branch` and push.
-   
-3. Start working on your milestone as usual.
-   
-4. Open a PR from the `feature/branch` when your work is done.
-
 ### Usage 
 
-- Make sure you have python and node installed.
+- Make sure you have python installed.
 
 - I recommend the use of VS Code as a code editor, but you can use any code editor.
 
@@ -61,7 +49,6 @@ Feel free to check the [issues page](issues/).
 ## Show your support
 
 Give a ⭐️ if you like this project!
- 
 
 ## 📝 License
 

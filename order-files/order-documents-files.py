@@ -1,9 +1,14 @@
 import os
 import shutil
 import getpass
+import time
 
 from tkinter import Tk, filedialog
 from datetime import datetime
+
+
+from watchdog.observers import Observer
+from watchdog.events import FileSystemEventHandler
 
 user = getpass.getuser() 
 
@@ -19,7 +24,60 @@ extensions = {
   '.pdf': 'PDFs',
   '.docx': 'Documents_word',
   '.txt': 'Documents_txt',
+  '.mp4': 'Videos MP4',
 }
+
+class EventHandler(FileSystemEventHandler):
+  
+  def on_created(self, event):
+    if not event.is_directory:
+      print(f"New file detected: {event.src_path}")
+      sort_files(root)
+
+def expectfile_tobe_free(file_root, attemps=10, wait=0.5):
+  
+  for _ in range(attemps):
+    try:
+      with open(file_root, "rb"):
+        return True
+    except (PermissionError, OSError):
+      time.sleep(wait)
+  
+  return False
+
+def sort_files(root):
+  
+  for file in os.listdir(root):
+  
+    file_root= os.path.join(root,file)
+  
+    if os.path.isfile(file_root) and file !="log_detail.txt":
+    
+      if not expectfile_tobe_free(file_root):
+        print(f"We cannot access the file {file} because is being used")
+        continue
+      
+      name, ext= os.path.splitext(file)
+      ext = ext.lower()
+      
+      if ext in extensions:
+        
+        get_folder_mod = datetime.fromtimestamp(os.path.getmtime(file_root))
+        subfolder_by_date = get_folder_mod.strftime("%m-%Y") #Format to "2025-05"# 
+        
+        #Create sub folder if does not exist 
+        folder_type = os.path.join(root, extensions[ext])
+        folder_date = os.path.join(folder_type,subfolder_by_date)
+        
+        if not os.path.exists(folder_date):
+          os.makedirs(folder_date)
+        
+        target = os.path.join(folder_date, file)
+        
+        shutil.move(file_root, target)
+        
+        with open( os.path.join(root, "log_detail.txt"), "a", encoding="utf-8") as log:
+          log.write(f"{datetime.now().strftime('%m-%d-%Y')} - Username: {user} - Moved: {file} -> {target}\n")
 
 for folder in set(extensions.values()):
   
@@ -28,33 +86,26 @@ for folder in set(extensions.values()):
     os.makedirs(folder_root)
 
 
-for file in os.listdir(root):
+sort_files(root)
+
+event_handler = EventHandler()
+observer = Observer()
+observer.schedule(event_handler, root, recursive=False)
+observer.start()
+
+print(f"Watching folder: {root}")
+print(f"Press Ctrl+C to stop the program")
+
+try:
   
-  file_root= os.path.join(root,file)
+  while True:
   
-  if os.path.isfile(file_root):
-    
-    name, ext= os.path.splitext(file)
-    ext = ext.lower()
-    
-    if ext in extensions:
-      
-      # target = os.path.join(root, extensions[ext], file)
-      # Get date by latest modification
-        
-      get_folder_mod = datetime.fromtimestamp(os.path.getmtime(file_root))
-      subfolder_by_date = get_folder_mod.strftime("%m-%Y") #Format to "2025-05"# 
-      
-      #Create sub folder if does not exist 
-      folder_type = os.path.join(root, extensions[ext])
-      folder_date = os.path.join(folder_type,subfolder_by_date)
-      
-      if not os.path.exists(folder_date):
-        os.makedirs(folder_date)
-      
-      target = os.path.join(folder_date, file)
-      
-      shutil.move(file_root, target)
-      
-      with open( os.path.join(root, "log_detail.txt"), "a", encoding="utf-8") as log:
-        log.write(f"{datetime.now().strftime('%m-%d-%Y')} - Username: {user} - Moved: {file} -> {target}\n")
+    time.sleep(1)
+
+except KeyboardInterrupt:
+  
+  print('Watch Stopped')
+  
+  observer.stop()
+
+observer.join()

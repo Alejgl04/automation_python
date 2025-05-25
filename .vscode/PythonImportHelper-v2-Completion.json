@@ -18,6 +18,24 @@
         "documentation": {}
     },
     {
+        "label": "getpass",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "getpass",
+        "description": "getpass",
+        "detail": "getpass",
+        "documentation": {}
+    },
+    {
+        "label": "time",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "time",
+        "description": "time",
+        "detail": "time",
+        "documentation": {}
+    },
+    {
         "label": "Tk",
         "importPath": "tkinter",
         "description": "tkinter",
@@ -34,11 +52,71 @@
         "documentation": {}
     },
     {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "Observer",
+        "importPath": "watchdog.observers",
+        "description": "watchdog.observers",
+        "isExtraImport": true,
+        "detail": "watchdog.observers",
+        "documentation": {}
+    },
+    {
+        "label": "FileSystemEventHandler",
+        "importPath": "watchdog.events",
+        "description": "watchdog.events",
+        "isExtraImport": true,
+        "detail": "watchdog.events",
+        "documentation": {}
+    },
+    {
+        "label": "EventHandler",
+        "kind": 6,
+        "importPath": "order-files.order-documents-files",
+        "description": "order-files.order-documents-files",
+        "peekOfCode": "class EventHandler(FileSystemEventHandler):\n  def on_created(self, event):\n    if not event.is_directory:\n      print(f\"New file detected: {event.src_path}\")\n      sort_files(root)\ndef expectfile_tobe_free(file_root, attemps=10, wait=0.5):\n  for _ in range(attemps):\n    try:\n      with open(file_root, \"rb\"):\n        return True",
+        "detail": "order-files.order-documents-files",
+        "documentation": {}
+    },
+    {
+        "label": "expectfile_tobe_free",
+        "kind": 2,
+        "importPath": "order-files.order-documents-files",
+        "description": "order-files.order-documents-files",
+        "peekOfCode": "def expectfile_tobe_free(file_root, attemps=10, wait=0.5):\n  for _ in range(attemps):\n    try:\n      with open(file_root, \"rb\"):\n        return True\n    except (PermissionError, OSError):\n      time.sleep(wait)\n  return False\ndef sort_files(root):\n  for file in os.listdir(root):",
+        "detail": "order-files.order-documents-files",
+        "documentation": {}
+    },
+    {
+        "label": "sort_files",
+        "kind": 2,
+        "importPath": "order-files.order-documents-files",
+        "description": "order-files.order-documents-files",
+        "peekOfCode": "def sort_files(root):\n  for file in os.listdir(root):\n    file_root= os.path.join(root,file)\n    if os.path.isfile(file_root) and file !=\"log_detail.txt\":\n      if not expectfile_tobe_free(file_root):\n        print(f\"We cannot access the file {file} because is being used\")\n        continue\n      name, ext= os.path.splitext(file)\n      ext = ext.lower()\n      if ext in extensions:",
+        "detail": "order-files.order-documents-files",
+        "documentation": {}
+    },
+    {
+        "label": "user",
+        "kind": 5,
+        "importPath": "order-files.order-documents-files",
+        "description": "order-files.order-documents-files",
+        "peekOfCode": "user = getpass.getuser() \nwindow = Tk()\nwindow.withdraw()\nroot = filedialog.askdirectory(title=\"Select the folder to order\")\nextensions = {\n  '.jpg': 'Images',\n  '.png': 'Images',\n  '.pdf': 'PDFs',\n  '.docx': 'Documents_word',\n  '.txt': 'Documents_txt',",
+        "detail": "order-files.order-documents-files",
+        "documentation": {}
+    },
+    {
         "label": "window",
         "kind": 5,
         "importPath": "order-files.order-documents-files",
         "description": "order-files.order-documents-files",
-        "peekOfCode": "window = Tk()\nwindow.withdraw()\nroot = filedialog.askdirectory(title=\"Select the folder to order\")\nextensions = {\n  '.jpg': 'Images',\n  '.png': 'Images',\n  '.pdf': 'PDFs',\n  '.docx': 'Documents_word',\n  '.txt': 'Documents_txt',\n}",
+        "peekOfCode": "window = Tk()\nwindow.withdraw()\nroot = filedialog.askdirectory(title=\"Select the folder to order\")\nextensions = {\n  '.jpg': 'Images',\n  '.png': 'Images',\n  '.pdf': 'PDFs',\n  '.docx': 'Documents_word',\n  '.txt': 'Documents_txt',\n  '.mp4': 'Videos MP4',",
         "detail": "order-files.order-documents-files",
         "documentation": {}
     },
@@ -47,7 +125,7 @@
         "kind": 5,
         "importPath": "order-files.order-documents-files",
         "description": "order-files.order-documents-files",
-        "peekOfCode": "root = filedialog.askdirectory(title=\"Select the folder to order\")\nextensions = {\n  '.jpg': 'Images',\n  '.png': 'Images',\n  '.pdf': 'PDFs',\n  '.docx': 'Documents_word',\n  '.txt': 'Documents_txt',\n}\nfor folder in set(extensions.values()):\n  folder_root = os.path.join(root, folder)",
+        "peekOfCode": "root = filedialog.askdirectory(title=\"Select the folder to order\")\nextensions = {\n  '.jpg': 'Images',\n  '.png': 'Images',\n  '.pdf': 'PDFs',\n  '.docx': 'Documents_word',\n  '.txt': 'Documents_txt',\n  '.mp4': 'Videos MP4',\n}\nclass EventHandler(FileSystemEventHandler):",
         "detail": "order-files.order-documents-files",
         "documentation": {}
     },
@@ -56,7 +134,25 @@
         "kind": 5,
         "importPath": "order-files.order-documents-files",
         "description": "order-files.order-documents-files",
-        "peekOfCode": "extensions = {\n  '.jpg': 'Images',\n  '.png': 'Images',\n  '.pdf': 'PDFs',\n  '.docx': 'Documents_word',\n  '.txt': 'Documents_txt',\n}\nfor folder in set(extensions.values()):\n  folder_root = os.path.join(root, folder)\n  if not os.path.exists(folder_root):",
+        "peekOfCode": "extensions = {\n  '.jpg': 'Images',\n  '.png': 'Images',\n  '.pdf': 'PDFs',\n  '.docx': 'Documents_word',\n  '.txt': 'Documents_txt',\n  '.mp4': 'Videos MP4',\n}\nclass EventHandler(FileSystemEventHandler):\n  def on_created(self, event):",
+        "detail": "order-files.order-documents-files",
+        "documentation": {}
+    },
+    {
+        "label": "event_handler",
+        "kind": 5,
+        "importPath": "order-files.order-documents-files",
+        "description": "order-files.order-documents-files",
+        "peekOfCode": "event_handler = EventHandler()\nobserver = Observer()\nobserver.schedule(event_handler, root, recursive=False)\nobserver.start()\nprint(f\"Watching folder: {root}\")\nprint(f\"Press Ctrl+C to stop the program\")\ntry:\n  while True:\n    time.sleep(1)\nexcept KeyboardInterrupt:",
+        "detail": "order-files.order-documents-files",
+        "documentation": {}
+    },
+    {
+        "label": "observer",
+        "kind": 5,
+        "importPath": "order-files.order-documents-files",
+        "description": "order-files.order-documents-files",
+        "peekOfCode": "observer = Observer()\nobserver.schedule(event_handler, root, recursive=False)\nobserver.start()\nprint(f\"Watching folder: {root}\")\nprint(f\"Press Ctrl+C to stop the program\")\ntry:\n  while True:\n    time.sleep(1)\nexcept KeyboardInterrupt:\n  print('Watch Stopped')",
         "detail": "order-files.order-documents-files",
         "documentation": {}
     }

@@ -27,6 +27,15 @@
         "documentation": {}
     },
     {
+        "label": "threading",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "threading",
+        "description": "threading",
+        "detail": "threading",
+        "documentation": {}
+    },
+    {
         "label": "time",
         "kind": 6,
         "isExtraImport": true,
@@ -45,6 +54,22 @@
     },
     {
         "label": "filedialog",
+        "importPath": "tkinter",
+        "description": "tkinter",
+        "isExtraImport": true,
+        "detail": "tkinter",
+        "documentation": {}
+    },
+    {
+        "label": "Button",
+        "importPath": "tkinter",
+        "description": "tkinter",
+        "isExtraImport": true,
+        "detail": "tkinter",
+        "documentation": {}
+    },
+    {
+        "label": "Label",
         "importPath": "tkinter",
         "description": "tkinter",
         "isExtraImport": true,
@@ -103,6 +128,24 @@
         "documentation": {}
     },
     {
+        "label": "start_monitoring",
+        "kind": 2,
+        "importPath": "order-files.order-documents-files",
+        "description": "order-files.order-documents-files",
+        "peekOfCode": "def start_monitoring():\n  observer.start()\ndef stop_monitoring():\n  observer.stop()\n  observer.join()\n  window.quit()\nwindow.deiconify()\nwindow.title(\"Monitoring Folder\")\nwindow.geometry(\"400x150\")\nLabel(window, text=f\"Monitoring the folder: \\n{root}\", wraplength=350).pack(pady=10)",
+        "detail": "order-files.order-documents-files",
+        "documentation": {}
+    },
+    {
+        "label": "stop_monitoring",
+        "kind": 2,
+        "importPath": "order-files.order-documents-files",
+        "description": "order-files.order-documents-files",
+        "peekOfCode": "def stop_monitoring():\n  observer.stop()\n  observer.join()\n  window.quit()\nwindow.deiconify()\nwindow.title(\"Monitoring Folder\")\nwindow.geometry(\"400x150\")\nLabel(window, text=f\"Monitoring the folder: \\n{root}\", wraplength=350).pack(pady=10)\nButton(window, text=\"Stop monitoring and out\", command=stop_monitoring).pack(pady=10)\nthreads_monitoring = threading.Thread(target=start_monitoring, daemon=True )",
+        "detail": "order-files.order-documents-files",
+        "documentation": {}
+    },
+    {
         "label": "user",
         "kind": 5,
         "importPath": "order-files.order-documents-files",
@@ -143,7 +186,7 @@
         "kind": 5,
         "importPath": "order-files.order-documents-files",
         "description": "order-files.order-documents-files",
-        "peekOfCode": "event_handler = EventHandler()\nobserver = Observer()\nobserver.schedule(event_handler, root, recursive=False)\nobserver.start()\nprint(f\"Watching folder: {root}\")\nprint(f\"Press Ctrl+C to stop the program\")\ntry:\n  while True:\n    time.sleep(1)\nexcept KeyboardInterrupt:",
+        "peekOfCode": "event_handler = EventHandler()\nobserver = Observer()\nobserver.schedule(event_handler, root, recursive=False)\ndef start_monitoring():\n  observer.start()\ndef stop_monitoring():\n  observer.stop()\n  observer.join()\n  window.quit()\nwindow.deiconify()",
         "detail": "order-files.order-documents-files",
         "documentation": {}
     },
@@ -152,7 +195,16 @@
         "kind": 5,
         "importPath": "order-files.order-documents-files",
         "description": "order-files.order-documents-files",
-        "peekOfCode": "observer = Observer()\nobserver.schedule(event_handler, root, recursive=False)\nobserver.start()\nprint(f\"Watching folder: {root}\")\nprint(f\"Press Ctrl+C to stop the program\")\ntry:\n  while True:\n    time.sleep(1)\nexcept KeyboardInterrupt:\n  print('Watch Stopped')",
+        "peekOfCode": "observer = Observer()\nobserver.schedule(event_handler, root, recursive=False)\ndef start_monitoring():\n  observer.start()\ndef stop_monitoring():\n  observer.stop()\n  observer.join()\n  window.quit()\nwindow.deiconify()\nwindow.title(\"Monitoring Folder\")",
+        "detail": "order-files.order-documents-files",
+        "documentation": {}
+    },
+    {
+        "label": "threads_monitoring",
+        "kind": 5,
+        "importPath": "order-files.order-documents-files",
+        "description": "order-files.order-documents-files",
+        "peekOfCode": "threads_monitoring = threading.Thread(target=start_monitoring, daemon=True )\nthreads_monitoring.start()\nwindow.mainloop()",
         "detail": "order-files.order-documents-files",
         "documentation": {}
     }

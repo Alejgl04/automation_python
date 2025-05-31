@@ -1,9 +1,10 @@
 import os
 import shutil
 import getpass
+import threading
 import time
 
-from tkinter import Tk, filedialog
+from tkinter import Tk, filedialog, Button, Label
 from datetime import datetime
 
 
@@ -91,21 +92,24 @@ sort_files(root)
 event_handler = EventHandler()
 observer = Observer()
 observer.schedule(event_handler, root, recursive=False)
-observer.start()
 
-print(f"Watching folder: {root}")
-print(f"Press Ctrl+C to stop the program")
+def start_monitoring():
+  observer.start()
 
-try:
-  
-  while True:
-  
-    time.sleep(1)
-
-except KeyboardInterrupt:
-  
-  print('Watch Stopped')
-  
+def stop_monitoring():
   observer.stop()
+  observer.join()
+  window.quit()
 
-observer.join()
+
+window.deiconify()
+window.title("Monitoring Folder")
+window.geometry("400x150")
+
+Label(window, text=f"Monitoring the folder: \n{root}", wraplength=350).pack(pady=10)
+Button(window, text="Stop monitoring and out", command=stop_monitoring).pack(pady=10)
+
+threads_monitoring = threading.Thread(target=start_monitoring, daemon=True )
+threads_monitoring.start()
+
+window.mainloop()
